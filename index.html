@@ -13,9 +13,11 @@
             --cream: #FEFDF8;
             --navy: #1B2838;
             --blue-light: #B8D4E8;
-            --blue-soft: #D5E5F0;
+            --blue-soft: #E8F0F7;
             --blue-accent: #8BB8D4;
+            --blue-wash: #D5E5F0;
             --warm: #D4A054;
+            --peach: #F5E6D3;
             --text: #2C3E50;
             --text-light: #6B7B8D;
         }
@@ -35,74 +37,38 @@
         body::before {
             content: '';
             position: fixed;
-            top: 12px;
-            left: 12px;
-            right: 12px;
-            bottom: 12px;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
             border: 1.5px solid var(--blue-light);
             pointer-events: none;
             z-index: 99;
+            border-radius: 2px;
         }
 
-        /* Decorative corner flourishes */
-        .corner-decor {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            z-index: 100;
-            pointer-events: none;
-            opacity: 0.5;
-        }
-        .corner-decor::before, .corner-decor::after {
-            content: '';
-            position: absolute;
-            background: var(--blue-accent);
-        }
-        .corner-tl { top: 8px; left: 8px; }
+        /* Corner flourishes */
+        .corner-decor { position: fixed; width: 40px; height: 40px; z-index: 100; pointer-events: none; opacity: 0.5; }
+        .corner-decor::before, .corner-decor::after { content: ''; position: absolute; background: var(--blue-accent); }
+        .corner-tl { top: 6px; left: 6px; }
         .corner-tl::before { width: 20px; height: 1.5px; top: 4px; left: 4px; }
         .corner-tl::after { width: 1.5px; height: 20px; top: 4px; left: 4px; }
-        .corner-tr { top: 8px; right: 8px; }
+        .corner-tr { top: 6px; right: 6px; }
         .corner-tr::before { width: 20px; height: 1.5px; top: 4px; right: 4px; }
         .corner-tr::after { width: 1.5px; height: 20px; top: 4px; right: 4px; }
-        .corner-bl { bottom: 8px; left: 8px; }
+        .corner-bl { bottom: 6px; left: 6px; }
         .corner-bl::before { width: 20px; height: 1.5px; bottom: 4px; left: 4px; }
         .corner-bl::after { width: 1.5px; height: 20px; bottom: 4px; left: 4px; }
-        .corner-br { bottom: 8px; right: 8px; }
+        .corner-br { bottom: 6px; right: 6px; }
         .corner-br::before { width: 20px; height: 1.5px; bottom: 4px; right: 4px; }
         .corner-br::after { width: 1.5px; height: 20px; bottom: 4px; right: 4px; }
-
-        /* Decorative divider with cookie */
-        .cookie-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem auto;
-        }
-        .cookie-divider::before, .cookie-divider::after {
-            content: '';
-            width: 80px;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--blue-light), transparent);
-        }
-        .cookie-divider span {
-            font-size: 1.2rem;
-        }
-
-        /* Scattered decorative elements */
-        .deco-flower {
-            position: absolute;
-            font-size: 1.4rem;
-            opacity: 0.15;
-            pointer-events: none;
-        }
 
         /* Nav */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(253, 250, 243, 0.95);
+            background: rgba(254, 253, 248, 0.95);
             backdrop-filter: blur(10px);
             z-index: 100;
             padding: 1rem 2rem;
@@ -131,8 +97,21 @@
             letter-spacing: 1.5px;
             text-transform: uppercase;
             transition: color 0.3s;
+            position: relative;
         }
 
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: var(--blue-accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
         .nav-links a:hover { color: var(--blue-accent); }
 
         .mobile-menu {
@@ -164,21 +143,25 @@
             overflow: hidden;
         }
 
-        /* gradient removed */
-
         .hero-content { position: relative; z-index: 1; }
 
         .hero-logo {
-            width: 260px;
-            height: 260px;
+            width: 240px;
+            height: 240px;
             object-fit: contain;
             margin-bottom: 2rem;
             animation: fadeInUp 1s ease;
+            filter: drop-shadow(0 4px 20px rgba(184, 212, 232, 0.3));
         }
 
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .hero h1 {
@@ -195,9 +178,27 @@
             font-size: 1.5rem;
             font-style: italic;
             color: var(--text-light);
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             animation: fadeInUp 1s ease 0.4s both;
         }
+
+        .cookie-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.2rem auto;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+        .cookie-divider::before, .cookie-divider::after {
+            content: '';
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(to var(--dir, right), transparent, var(--blue-light));
+        }
+        .cookie-divider::before { --dir: right; }
+        .cookie-divider::after { --dir: left; }
+        .cookie-divider span { font-size: 1.2rem; }
 
         .hero .sub-tagline {
             font-size: 0.85rem;
@@ -220,7 +221,7 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             border: 2px solid var(--navy);
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             cursor: pointer;
             animation: fadeInUp 1s ease 0.6s both;
         }
@@ -228,6 +229,70 @@
         .btn:hover {
             background: transparent;
             color: var(--navy);
+            letter-spacing: 4px;
+        }
+
+        /* Scattered deco */
+        .deco-flower {
+            position: absolute;
+            opacity: 0.12;
+            pointer-events: none;
+            font-size: 1.4rem;
+        }
+
+        /* Wave divider */
+        .wave-divider {
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .wave-divider svg {
+            display: block;
+            width: 100%;
+            height: 50px;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            padding: 5rem 2rem;
+            background: var(--blue-soft);
+            text-align: center;
+            position: relative;
+        }
+
+        .quote-section::before {
+            content: '"';
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 8rem;
+            color: var(--blue-light);
+            position: absolute;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            line-height: 1;
+            opacity: 0.5;
+        }
+
+        .quote-section blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--navy);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .quote-section cite {
+            display: block;
+            margin-top: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-style: normal;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-light);
         }
 
         /* About */
@@ -263,9 +328,7 @@
             margin: 0 auto;
         }
 
-        .about p + p {
-            margin-top: 1.5rem;
-        }
+        .about p + p { margin-top: 1.5rem; }
 
         .divider {
             width: 60px;
@@ -274,24 +337,11 @@
             margin: 3rem auto;
         }
 
-        /* Section ribbon accents */
-        .ribbon-top {
-            width: 100%;
-            height: 30px;
-            background: repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent 20px,
-                var(--blue-soft) 20px,
-                var(--blue-soft) 21px
-            );
-            opacity: 0.4;
-        }
-
         /* Details */
         .details {
             padding: 5rem 2rem;
             background: white;
+            position: relative;
         }
 
         .details-inner {
@@ -303,11 +353,32 @@
             text-align: center;
         }
 
-        .detail-item { padding: 1rem; }
+        .detail-item {
+            padding: 2rem 1.5rem;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .detail-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(184, 212, 232, 0.2);
+        }
 
         .detail-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--blue-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 1.2rem;
+            transition: background 0.3s;
+        }
+
+        .detail-item:hover .detail-icon {
+            background: var(--blue-wash);
         }
 
         .detail-item h3 {
@@ -322,17 +393,94 @@
             line-height: 1.7;
         }
 
+        /* Instagram Teaser */
+        .ig-section {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: var(--cream);
+        }
+
+        .ig-section h2 {
+            font-size: 2.4rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .ig-section p {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .ig-grid {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .ig-placeholder {
+            width: 120px;
+            height: 120px;
+            background: var(--blue-soft);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .ig-placeholder:hover {
+            transform: scale(1.05);
+            background: var(--blue-wash);
+        }
+
+        .ig-link {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--navy);
+            text-decoration: none;
+            border-bottom: 1.5px solid var(--blue-light);
+            padding-bottom: 2px;
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        .ig-link:hover {
+            color: var(--blue-accent);
+            border-color: var(--blue-accent);
+        }
+
         /* CTA */
         .cta {
             padding: 6rem 2rem;
             background: var(--navy);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '🍪';
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.03;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .cta h2 {
             font-size: 2.6rem;
             color: var(--cream);
             margin-bottom: 1rem;
+            position: relative;
         }
 
         .cta p {
@@ -340,12 +488,14 @@
             color: var(--blue-light);
             max-width: 500px;
             margin: 0 auto 2.5rem;
+            position: relative;
         }
 
         .cta .btn {
             background: var(--cream);
             color: var(--navy);
             border-color: var(--cream);
+            position: relative;
         }
 
         .cta .btn:hover {
@@ -393,6 +543,24 @@
             color: var(--text-light);
         }
 
+        .made-with {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
@@ -401,7 +569,7 @@
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: rgba(253, 250, 243, 0.98);
+                background: rgba(254, 253, 248, 0.98);
                 flex-direction: column;
                 padding: 2rem;
                 gap: 1.5rem;
@@ -418,23 +586,20 @@
             }
 
             .hero .tagline { font-size: 1.2rem; }
-
-            .hero-logo {
-                width: 200px;
-                height: 200px;
-            }
-
-            .about h2, .cta h2 { font-size: 2rem; }
+            .hero-logo { width: 180px; height: 180px; }
+            .about h2, .cta h2, .ig-section h2 { font-size: 2rem; }
+            .quote-section blockquote { font-size: 1.4rem; }
 
             .details-inner {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 1.5rem;
             }
+
+            .ig-placeholder { width: 100px; height: 100px; }
         }
     </style>
 </head>
 <body>
-    <!-- Decorative corner accents -->
     <div class="corner-decor corner-tl"></div>
     <div class="corner-decor corner-tr"></div>
     <div class="corner-decor corner-bl"></div>
@@ -454,12 +619,12 @@
 
     <!-- Hero -->
     <section class="hero">
-        <span class="deco-flower" style="top: 15%; left: 8%;">🌸</span>
-        <span class="deco-flower" style="top: 25%; right: 10%;">🍪</span>
-        <span class="deco-flower" style="bottom: 20%; left: 12%;">✿</span>
-        <span class="deco-flower" style="bottom: 15%; right: 8%;">🌿</span>
-        <span class="deco-flower" style="top: 40%; left: 5%;">❀</span>
-        <span class="deco-flower" style="top: 60%; right: 6%;">🌷</span>
+        <span class="deco-flower" style="top: 18%; left: 8%;">🌸</span>
+        <span class="deco-flower" style="top: 28%; right: 10%;">🍪</span>
+        <span class="deco-flower" style="bottom: 25%; left: 12%;">✿</span>
+        <span class="deco-flower" style="bottom: 18%; right: 7%;">🌿</span>
+        <span class="deco-flower" style="top: 45%; left: 5%;">❀</span>
+        <span class="deco-flower" style="top: 55%; right: 5%;">🌷</span>
         <div class="hero-content">
             <img src="images/logo.png" alt="Laguna Cookie Queen Logo" class="hero-logo">
             <h1>Laguna Cookie Queen</h1>
@@ -470,40 +635,47 @@
         </div>
     </section>
 
+    <!-- Quote -->
+    <section class="quote-section">
+        <blockquote class="reveal">
+            She traded high heels for hot ovens — and somehow became the Cookie Queen.
+            <cite>The Origin Story</cite>
+        </blockquote>
+    </section>
+
     <!-- About -->
     <section class="about" id="about">
-        <p class="section-label">The Story</p>
-        <h2>From High Heels to Hot Ovens</h2>
-        <p>
-            After years in the fashion world, Karen traded high heels for hot ovens — and somehow 
-            became the Laguna Cookie Queen. Her cookies are rich, salty-sweet, and a little glamorous — 
+        <p class="section-label reveal">The Story</p>
+        <h2 class="reveal">From Fashion to Flavor</h2>
+        <p class="reveal">
+            After years in the fashion world, Karen brought her eye for detail and taste for the finer things 
+            into the kitchen. Her cookies are rich, salty-sweet, and a little glamorous — 
             baked with french golden butter and crowned with just enough attitude.
         </p>
-        <p>
-            A taste of California confidence in every bite.
-        </p>
         <div class="divider"></div>
-        <p>
+        <p class="reveal">
             Every cookie is homemade and baked to order in Laguna Beach. No shortcuts, no preservatives — 
-            just real ingredients and a whole lot of love.
+            just real ingredients, California sunshine, and a whole lot of love.
+        </p>
+        <p class="reveal" style="margin-top: 1.5rem;">
+            <em style="color: var(--blue-accent);">A taste of California confidence in every bite.</em>
         </p>
     </section>
 
     <!-- Details -->
-    <div class="ribbon-top"></div>
     <section class="details">
         <div class="details-inner">
-            <div class="detail-item">
+            <div class="detail-item reveal">
                 <div class="detail-icon">🍪</div>
                 <h3>Homemade</h3>
                 <p>Small-batch, handcrafted cookies made from scratch with premium ingredients.</p>
             </div>
-            <div class="detail-item">
+            <div class="detail-item reveal">
                 <div class="detail-icon">✨</div>
                 <h3>Made to Order</h3>
                 <p>Every batch is baked fresh just for you. Never sitting on a shelf.</p>
             </div>
-            <div class="detail-item">
+            <div class="detail-item reveal">
                 <div class="detail-icon">🌊</div>
                 <h3>Laguna Beach</h3>
                 <p>Baked with love on the California coast. Local pickup and delivery available.</p>
@@ -511,11 +683,25 @@
         </div>
     </section>
 
+    <!-- Instagram -->
+    <section class="ig-section">
+        <p class="section-label reveal">Follow Along</p>
+        <h2 class="reveal">On the 'Gram</h2>
+        <p class="reveal">See our latest creations and seasonal specials</p>
+        <div class="ig-grid reveal">
+            <div class="ig-placeholder">🍪</div>
+            <div class="ig-placeholder">🎀</div>
+            <div class="ig-placeholder">🌸</div>
+            <div class="ig-placeholder">🧁</div>
+        </div>
+        <a href="https://instagram.com/lagunacookiequeen" target="_blank" class="ig-link reveal">@lagunacookiequeen →</a>
+    </section>
+
     <!-- CTA -->
     <section class="cta" id="order">
-        <h2>Ready to Order?</h2>
-        <p>Send a DM on Instagram to place your order. Custom orders and event catering welcome.</p>
-        <a href="https://instagram.com/lagunacookiequeen" target="_blank" class="btn">Message on Instagram</a>
+        <h2 class="reveal">Ready to Order?</h2>
+        <p class="reveal">Send a DM on Instagram to place your order. Custom boxes and event catering welcome.</p>
+        <a href="https://instagram.com/lagunacookiequeen" target="_blank" class="btn reveal">Message on Instagram</a>
     </section>
 
     <!-- Footer -->
@@ -525,6 +711,7 @@
             <a href="https://instagram.com/lagunacookiequeen" target="_blank">Instagram</a>
         </div>
         <p>&copy; 2026 Laguna Cookie Queen. Handmade in Laguna Beach, California.</p>
+        <p class="made-with">Made with 🍪 &amp; ❤️</p>
     </footer>
 
     <script>
@@ -541,20 +728,17 @@
                 if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
+
+        // Scroll reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('visible');
                 }
             });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.detail-item, .about p, .about h2').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
