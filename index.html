@@ -31,6 +31,72 @@
 
         h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; }
 
+        /* Decorative Border */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border: 1.5px solid var(--blue-light);
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        /* Decorative corner flourishes */
+        .corner-decor {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .corner-decor::before, .corner-decor::after {
+            content: '';
+            position: absolute;
+            background: var(--blue-accent);
+        }
+        .corner-tl { top: 8px; left: 8px; }
+        .corner-tl::before { width: 20px; height: 1.5px; top: 4px; left: 4px; }
+        .corner-tl::after { width: 1.5px; height: 20px; top: 4px; left: 4px; }
+        .corner-tr { top: 8px; right: 8px; }
+        .corner-tr::before { width: 20px; height: 1.5px; top: 4px; right: 4px; }
+        .corner-tr::after { width: 1.5px; height: 20px; top: 4px; right: 4px; }
+        .corner-bl { bottom: 8px; left: 8px; }
+        .corner-bl::before { width: 20px; height: 1.5px; bottom: 4px; left: 4px; }
+        .corner-bl::after { width: 1.5px; height: 20px; bottom: 4px; left: 4px; }
+        .corner-br { bottom: 8px; right: 8px; }
+        .corner-br::before { width: 20px; height: 1.5px; bottom: 4px; right: 4px; }
+        .corner-br::after { width: 1.5px; height: 20px; bottom: 4px; right: 4px; }
+
+        /* Decorative divider with cookie */
+        .cookie-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem auto;
+        }
+        .cookie-divider::before, .cookie-divider::after {
+            content: '';
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--blue-light), transparent);
+        }
+        .cookie-divider span {
+            font-size: 1.2rem;
+        }
+
+        /* Scattered decorative elements */
+        .deco-flower {
+            position: absolute;
+            font-size: 1.4rem;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
         /* Nav */
         nav {
             position: fixed;
@@ -224,6 +290,20 @@
             margin: 3rem auto;
         }
 
+        /* Section ribbon accents */
+        .ribbon-top {
+            width: 100%;
+            height: 30px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 20px,
+                var(--blue-soft) 20px,
+                var(--blue-soft) 21px
+            );
+            opacity: 0.4;
+        }
+
         /* Details */
         .details {
             padding: 5rem 2rem;
@@ -370,6 +450,12 @@
     </style>
 </head>
 <body>
+    <!-- Decorative corner accents -->
+    <div class="corner-decor corner-tl"></div>
+    <div class="corner-decor corner-tr"></div>
+    <div class="corner-decor corner-bl"></div>
+    <div class="corner-decor corner-br"></div>
+
     <nav>
         <div class="nav-logo">Laguna Cookie Queen</div>
         <ul class="nav-links" id="navLinks">
@@ -384,10 +470,17 @@
 
     <!-- Hero -->
     <section class="hero">
+        <span class="deco-flower" style="top: 15%; left: 8%;">🌸</span>
+        <span class="deco-flower" style="top: 25%; right: 10%;">🍪</span>
+        <span class="deco-flower" style="bottom: 20%; left: 12%;">✿</span>
+        <span class="deco-flower" style="bottom: 15%; right: 8%;">🌿</span>
+        <span class="deco-flower" style="top: 40%; left: 5%;">❀</span>
+        <span class="deco-flower" style="top: 60%; right: 6%;">🌷</span>
         <div class="hero-content">
             <img src="images/logo.jpg" alt="Laguna Cookie Queen Logo" class="hero-logo">
             <h1>Laguna Cookie Queen</h1>
             <p class="tagline">Cookies with a little couture</p>
+            <div class="cookie-divider"><span>🍪</span></div>
             <p class="sub-tagline">Homemade · Made to Order · Laguna Beach</p>
             <a href="https://instagram.com/lagunacookiequeen" target="_blank" class="btn">DM to Order</a>
         </div>
@@ -413,6 +506,7 @@
     </section>
 
     <!-- Details -->
+    <div class="ribbon-top"></div>
     <section class="details">
         <div class="details-inner">
             <div class="detail-item">
